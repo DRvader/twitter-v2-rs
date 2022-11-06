@@ -36,6 +36,12 @@ where
         self.send(self.request(Method::DELETE, self.url(format!("tweets/{id}"))?))
             .await
     }
+    pub fn get_user_timeline(
+        &self,
+        user_id: impl IntoNumericId,
+    ) -> GetTimelineRequestBuilder<A, Vec<Tweet>, TweetsMeta> {
+        GetTimelineRequestBuilder::new(self, self.url(format!("users/{user_id}/timelines/reverse_chronological")).unwrap())
+    }
     pub fn get_user_tweets(
         &self,
         user_id: impl IntoNumericId,
